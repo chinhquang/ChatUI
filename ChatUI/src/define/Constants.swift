@@ -8,7 +8,12 @@
 
 //This file is used to define hard string and constants
 
+import UIKit
+
 //MARK: - Screen Titles
 let kListConversationScreenTitle = "LittleLives"
 let kListMessageScreenTitle = "LittleLives Demo"
 
+//MARK: - Device ratio
+// Size base : iPhone 8, iPhone 6 with width 375
+let kWidthRatio = 375 / UIScreen.main.bounds.width
