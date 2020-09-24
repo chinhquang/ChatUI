@@ -41,7 +41,7 @@ class ChatMessageViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
-            self.tableView.scrollToBottom(animated: false)
+            self.tableView.scrollToBottomRow()
         }
     }
     @objc func handleKeyboardNotification(notification : Notification) {
@@ -55,10 +55,29 @@ class ChatMessageViewController: BaseViewController {
             UIView.animate(withDuration: 0, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
                 self.view.layoutIfNeeded()
             }, completion: {(completion) in
-                self.tableView.scrollToBottom(animated: true)
+                self.tableView.scrollToBottomRow()
             })
         }
     }
+    
+    @IBAction func sendButtonOnClick(_ sender: Any) {
+        guard let text = inputTextField.text else { return }
+        if text.trim().count == 0 {
+            return
+        }
+        let chatMessage = ChatMessage(text: text.trim(), isIncoming: false, date: Date())
+        chatMessageViewModel.messagesFromServer.append(chatMessage)
+        chatMessageViewModel.attemptToAssembleGroupedMessages()
+        
+        let sectionCount = chatMessageViewModel.chatMessages.count
+        let itemCountInSection = chatMessageViewModel.chatMessages[sectionCount - 1].count
+        let indexPath = IndexPath(row:  itemCountInSection - 1 , section: sectionCount - 1)
+
+        tableView.insertRows(at: [indexPath], with: .automatic)
+        tableView.scrollToBottomRow()
+        inputTextField.text = ""
+    }
+    
 }
 
 //MARK: - UITableViewDataSource's medthods

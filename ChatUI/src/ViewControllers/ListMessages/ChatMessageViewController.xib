@@ -60,6 +60,9 @@
                             </constraints>
                             <color key="tintColor" red="0.21929091370000001" green="0.85331777649999996" blue="0.92586053749999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <state key="normal" image="paperplane.fill"/>
+                            <connections>
+                                <action selector="sendButtonOnClick:" destination="-1" eventType="touchUpInside" id="eb0-dm-CzF"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8PY-ID-xa9">
                             <rect key="frame" x="10" y="9" width="30" height="30"/>
