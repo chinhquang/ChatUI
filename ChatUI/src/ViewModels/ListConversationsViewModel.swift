@@ -30,7 +30,5 @@ extension ListConversationsViewModel {
         conversations = Mapper<ConversationModel>().mapArray(JSONArray: conversationsJson)
         completion(.success(conversations))
         
-
-        
     }
 }

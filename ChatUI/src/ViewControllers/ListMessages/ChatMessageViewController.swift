@@ -9,73 +9,41 @@
 import UIKit
 import ObjectMapper
 
-extension UIScrollView {
-
-    func scrollToBottom(animated: Bool) {
-        var y: CGFloat = 0.0
-        let HEIGHT = self.frame.size.height
-        if self.contentSize.height > HEIGHT {
-            y = self.contentSize.height - HEIGHT
-        }
-        self.setContentOffset(CGPoint(x: 0, y: y), animated: animated)
-    }
-}
-class ChatMessageViewController: UIViewController {
-
+class ChatMessageViewController: BaseViewController {
+    
+    //MARK:- Properties and IBOutlet declarations
     @IBOutlet weak var tableView: UITableView!
-    fileprivate let cellId = "id123"
+    
     @IBOutlet weak var messageInputContainerView: UIView!
     @IBOutlet weak var inputTextField: UITextfieldHelper!
-    
-    
     @IBOutlet weak var bottomContraints: NSLayoutConstraint!
     
-    var chatMessages = [[ChatMessage]]()
+    var chatMessageViewModel : ChatMessageViewModel = ChatMessageViewModel()
+    fileprivate let cellId = "id123"
     
-    var messagesFromServer = [
-        ChatMessage(text: "Here's my very first message", isIncoming: true, date: Date.dateFromCustomString(customString: "08/03/2018")),
-        ChatMessage(text: "I'm going to message another long message that will word wrap", isIncoming: true, date: Date.dateFromCustomString(customString: "08/03/2018")),
-        ChatMessage(text: "I'm going to message another long message that will word wrap, I'm going to message another long message that will word wrap, I'm going to message another long message that will word wrap", isIncoming: false, date: Date.dateFromCustomString(customString: "09/15/2018")),
-        ChatMessage(text: "Yo, dawg, Whaddup!", isIncoming: false, date: Date()),
-        ChatMessage(text: "This message should appear on the left with a white background bubble", isIncoming: true, date: Date.dateFromCustomString(customString: "09/15/2018")),
-        ChatMessage(text: "Third Section message", isIncoming: true, date: Date.dateFromCustomString(customString: "10/31/2018"))
-        ]
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.tableView.scrollToBottom(animated: true)
-    }
-    
-    fileprivate func attemptToAssembleGroupedMessages() {
-        print("Attempt to group our messages together based on Date property")
-        
-        let groupedMessages = Dictionary(grouping: messagesFromServer) { (element) -> Date in
-            return element.date.reduceToMonthDayYear()
-        }
-        
-        // provide a sorting for your keys somehow
-        let sortedKeys = groupedMessages.keys.sorted()
-        sortedKeys.forEach { (key) in
-            let values = groupedMessages[key]
-            chatMessages.append(values ?? [])
-        }
-    }
-    
+   
+    //MARK: - Public methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        attemptToAssembleGroupedMessages()
         
+        chatMessageViewModel.attemptToAssembleGroupedMessages()
+        //Set up tableview
         tableView.register(ChatMessageCell.self, forCellReuseIdentifier: cellId)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.backgroundColor = UIColor(white: 0.95, alpha: 1)
-        // Do any additional setup after loading the view.
         
+        //Register Notification
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+            self.tableView.scrollToBottom(animated: false)
+        }
+    }
     @objc func handleKeyboardNotification(notification : Notification) {
         if let userInfo = notification.userInfo{
             let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue
@@ -88,16 +56,15 @@ class ChatMessageViewController: UIViewController {
                 self.view.layoutIfNeeded()
             }, completion: {(completion) in
                 self.tableView.scrollToBottom(animated: true)
-
-                
             })
         }
     }
 }
 
+//MARK: - UITableViewDataSource's medthods
 extension ChatMessageViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return chatMessages.count
+        return chatMessageViewModel.chatMessages.count
     }
         
     class DateHeaderLabel: UILabel {
@@ -105,7 +72,7 @@ extension ChatMessageViewController: UITableViewDataSource {
         override init(frame: CGRect) {
             super.init(frame: frame)
             
-            backgroundColor = .black
+            backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
             textColor = .white
             textAlignment = .center
             translatesAutoresizingMaskIntoConstraints = false // enables auto layout
@@ -127,7 +94,7 @@ extension ChatMessageViewController: UITableViewDataSource {
     }
         
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if let firstMessageInSection = chatMessages[section].first {
+        if let firstMessageInSection = chatMessageViewModel.chatMessages[section].first {
             
             let dateString = firstMessageInSection.date.getDateString(with: "dd/MM/yyyy")
             
@@ -135,7 +102,6 @@ extension ChatMessageViewController: UITableViewDataSource {
             label.text = dateString
             
             let containerView = UIView()
-            
             containerView.addSubview(label)
             label.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
             label.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
@@ -146,23 +112,26 @@ extension ChatMessageViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+        return 50 * kWidthRatio
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return chatMessages[section].count
+        return chatMessageViewModel.chatMessages[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! ChatMessageCell
 //        let chatMessage = chatMessages[indexPath.row]
-        let chatMessage = chatMessages[indexPath.section][indexPath.row]
+        let chatMessage = chatMessageViewModel.chatMessages[indexPath.section][indexPath.row]
         cell.chatMessage = chatMessage
         cell.selectionStyle = .none
         return cell
     }
 
 }
+
+
+//MARK: - UITableViewDelegate's medthods
 extension ChatMessageViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         inputTextField.endEditing(true)

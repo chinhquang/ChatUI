@@ -8,7 +8,6 @@
 
 import UIKit
 import ObjectMapper
-import MessageKit
 
 class ConversationModel : Mappable {
     init (){}
