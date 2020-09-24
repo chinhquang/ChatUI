@@ -9,21 +9,44 @@
 import UIKit
 import ObjectMapper
 
-class ConversationModel {
+class ConversationModel : Mappable {
     required init?(map: Map) {
         
     }
     
     func mapping(map: Map) {
         message <- map ["message"]
-        owner <- map ["owner"]
-        createdAt <- map ["createdAt"]
-        updatedAt <- map ["updatedAt"]
-        toUser <- map ["toUser"]
+        messages <- map ["messages"]
+        
     }
-    var message : String?
-    var createdAt: TimeInterval?
+    var message : MessageModel?
+    var messages : [MessageModel]?
+}
+
+class MessageModel: Mappable {
+    required init?(map: Map) {
+        
+    }
+    
+    func mapping(map: Map) {
+        id <- map["id"]
+        message <- map ["message"]
+        createDate <- map ["createDate"]
+        owner <- map ["owner"]
+    }
+    
+    var id: String?
+    var message: String?
+    var createDate : TimeInterval?
     var owner: UserInfoModel?
-    var toUser : UserInfoModel?
-    var updatedAt : TimeInterval?
+}
+struct Member {
+  let name: String
+  let color: UIColor
+}
+
+struct Message {
+  let member: Member
+  let text: String
+  let messageId: String
 }

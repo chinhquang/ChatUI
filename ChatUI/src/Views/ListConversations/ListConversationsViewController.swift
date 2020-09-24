@@ -31,14 +31,18 @@ class ListConversationsViewController: BaseViewController {
     @IBOutlet weak var tableView: UITableView!
 }
 
+//MARK: - UITableViewDelegate conforming methods
 extension ListConversationsViewController: UITableViewDelegate{
     
 }
+//MARK: - UITableViewDatasource conforming methods
 extension ListConversationsViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        conversationsViewModel.conversations.count
         if conversationsViewModel.conversations.count == 0 {
             tableView.setEmptyView(title: "Empty history", message: "There is no chat history")
+        } else {
+            tableView.restore()
         }
         return conversationsViewModel.conversations.count
     }
