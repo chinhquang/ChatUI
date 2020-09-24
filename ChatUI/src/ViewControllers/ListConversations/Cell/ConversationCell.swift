@@ -21,6 +21,18 @@ class ConversationCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    var message: MessageModel? {
+        didSet {
+            guard let message = self.message else {
+                return
+            }
+            usernameLabel.text = message.owner?.username
+            messageLabel.text = message.message
+            timeLabel.text = Date.init(timeIntervalSince1970: message.createDate!).getDateString(with: "hh:mm aaa")
+            avatarImageView.setImage(imgURL: message.owner?.avatar ?? "", placeHolderImage: #imageLiteral(resourceName: "user"))
+        }
+    }
+    
     @IBOutlet weak var usernameLabel: UILabelHelper!
     @IBOutlet weak var messageLabel: UILabelHelper!
     @IBOutlet weak var timeLabel: UILabelHelper!

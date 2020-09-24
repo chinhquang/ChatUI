@@ -17,3 +17,14 @@ let kListMessageScreenTitle = "LittleLives Demo"
 //MARK: - Device ratio
 // Size base : iPhone 8, iPhone 6 with width 375
 let kWidthRatio = 375 / UIScreen.main.bounds.width
+
+//MARK: - Mock data file name
+let kMockingDataFileName = "MockData"
+
+//MARK: - Callback typealias
+public typealias IntHandler = (Int) -> (Void)
+public typealias DateHandler = (Date?) -> (Void)
+public typealias ImageHandler = (UIImage?) -> (Void)
+public typealias BoolHandler = (Bool) -> (Void)
+public typealias StringHandler = (String?) -> (Void)
+public typealias VoidHandler = () -> ()

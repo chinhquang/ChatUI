@@ -17,6 +17,10 @@ class UserInfoModel : Mappable{
         self.avatar = avatar
         self.username = username
     }
+    init(id : Int, avatar: String, username: String) {
+        self.avatar = avatar
+        self.username = username
+    }
     required init?(map: Map){
         
     }

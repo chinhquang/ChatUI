@@ -14,28 +14,23 @@
             },
             "messages":[
                 {
-                    "message" : {
+                    "id" : 1,
+                    "createDate" : 1600866422,
+                    "message" : "Hello Mr X!",
+                    "owner" : {
                         "id" : 1,
-                        "createDate" : 1600866283,
-                        "message" : "Xin chào !",
-                        "owner" : {
-                            "id" : 1,
-                            "username" : "Mr B",
-                            "avatar" : "https://image2.tienphong.vn/w1200/Uploaded/2020/zaugtn/2018_07_19/tien_phong_mrbean_vbqw.jpg"
-
-                        }
+                        "username" : "Mr B",
+                        "avatar" : "https://image2.tienphong.vn/w1200/Uploaded/2020/zaugtn/2018_07_19/tien_phong_mrbean_vbqw.jpg"
                     }
                 },
                 {
-                    "message" : {
+                    "id" : 2,
+                    "createDate" : 1600866622,
+                    "message" : "Hello Mr B!",
+                    "owner" : {
                         "id" : 2,
-                        "createDate" : 1600866622,
-                        "message" : "Hello Mr B!",
-                        "owner" : {
-                            "id" : 2,
-                            "username" : "Ms X",
-                            "avatar" : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Secretary_Clinton_8x10_2400_1.jpg/1200px-Secretary_Clinton_8x10_2400_1.jpg"
-                        }
+                        "username" : "Ms X",
+                        "avatar" : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Secretary_Clinton_8x10_2400_1.jpg/1200px-Secretary_Clinton_8x10_2400_1.jpg"
                     }
                 }
                 

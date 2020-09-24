@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChatMessageViewController" customModule="ChatUI" customModuleProvider="target">
+            <connections>
+                <outlet property="bottomContraints" destination="SaV-gc-p3I" id="Aji-ks-Yul"/>
+                <outlet property="inputTextField" destination="XKA-Gd-9O8" id="ya9-pk-k5E"/>
+                <outlet property="messageInputContainerView" destination="WuW-E9-7Rp" id="QKr-4H-fkk"/>
+                <outlet property="tableView" destination="Jtr-q5-YXq" id="KcI-uC-YI7"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WuW-E9-7Rp">
+                    <rect key="frame" x="0.0" y="688" width="414" height="48"/>
+                    <subviews>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter message here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XKA-Gd-9O8" customClass="UITextfieldHelper" customModule="ChatUI" customModuleProvider="target">
+                            <rect key="frame" x="8" y="0.0" width="406" height="48"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="iPhone8">
+                                    <real key="value" value="14"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="iPhone8Plus">
+                                    <real key="value" value="15"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="iPhoneSE">
+                                    <real key="value" value="12"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="iPhone4s">
+                                    <real key="value" value="12"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="iPhoneXS">
+                                    <real key="value" value="14"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="iPhoneXR">
+                                    <real key="value" value="15"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="iPhoneXMax">
+                                    <real key="value" value="15"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="4Ez-WO-tHV"/>
+                        <constraint firstAttribute="trailing" secondItem="XKA-Gd-9O8" secondAttribute="trailing" id="8vr-hi-59M"/>
+                        <constraint firstItem="XKA-Gd-9O8" firstAttribute="top" secondItem="WuW-E9-7Rp" secondAttribute="top" id="Y7G-sU-pLx"/>
+                        <constraint firstItem="XKA-Gd-9O8" firstAttribute="leading" secondItem="WuW-E9-7Rp" secondAttribute="leading" constant="8" id="qvb-4g-Acy"/>
+                        <constraint firstAttribute="bottom" secondItem="XKA-Gd-9O8" secondAttribute="bottom" id="veT-Ib-OEO"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Jtr-q5-YXq">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="688"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="Jtr-q5-YXq" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="8an-fo-Ieo"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="WuW-E9-7Rp" secondAttribute="bottom" id="SaV-gc-p3I"/>
+                <constraint firstItem="WuW-E9-7Rp" firstAttribute="top" secondItem="Jtr-q5-YXq" secondAttribute="bottom" id="Umv-Il-wVg"/>
+                <constraint firstItem="WuW-E9-7Rp" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="a8L-FI-Ijv"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="WuW-E9-7Rp" secondAttribute="trailing" id="d7A-vc-Y4h"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Jtr-q5-YXq" secondAttribute="trailing" id="rev-cp-hwp"/>
+                <constraint firstItem="Jtr-q5-YXq" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="w07-B0-Ecr"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="139" y="106"/>
+        </view>
+    </objects>
+</document>

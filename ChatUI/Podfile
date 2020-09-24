@@ -7,7 +7,7 @@ target 'ChatUI' do
 
   # Pods for ChatUI
 pod 'ObjectMapper'
-pod 'MessageKit'
 pod 'Alamofire', '~>4.8.2'
+pod 'SDWebImage'
 
 end

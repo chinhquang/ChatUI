@@ -26,15 +26,21 @@ class ListConversationsViewController: BaseViewController {
             self.tableView.reloadData()
         }
     }
-
+    
     
     @IBOutlet weak var tableView: UITableView!
 }
 
 //MARK: - UITableViewDelegate conforming methods
 extension ListConversationsViewController: UITableViewDelegate{
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let vc = ListMessageViewController()
+//        let viewModel = conversationsViewModel.conversations[indexPath.row]
+//        vc.messagesViewModel = ListMessagesViewModel(model: viewModel)
+        self.navigationController?.pushViewController(ChatMessageViewController(), animated: true)
+    }
 }
+
 //MARK: - UITableViewDatasource conforming methods
 extension ListConversationsViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -49,6 +55,8 @@ extension ListConversationsViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ConversationCell.reuseIdentifier, for: indexPath) as! ConversationCell
+        cell.message = conversationsViewModel.conversations[indexPath.row].message
+        cell.selectionStyle = .none
         return cell
     }
     

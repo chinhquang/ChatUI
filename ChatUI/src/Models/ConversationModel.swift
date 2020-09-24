@@ -8,8 +8,10 @@
 
 import UIKit
 import ObjectMapper
+import MessageKit
 
 class ConversationModel : Mappable {
+    init (){}
     required init?(map: Map) {
         
     }
@@ -19,6 +21,7 @@ class ConversationModel : Mappable {
         messages <- map ["messages"]
         
     }
+    
     var message : MessageModel?
     var messages : [MessageModel]?
 }
@@ -40,13 +43,9 @@ class MessageModel: Mappable {
     var createDate : TimeInterval?
     var owner: UserInfoModel?
 }
-struct Member {
-  let name: String
-  let color: UIColor
-}
 
-struct Message {
-  let member: Member
-  let text: String
-  let messageId: String
+struct ChatMessage {
+    let text: String
+    let isIncoming: Bool
+    let date: Date
 }
