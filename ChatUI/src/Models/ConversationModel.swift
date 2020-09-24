@@ -43,8 +43,18 @@ class MessageModel: Mappable {
     var owner: UserInfoModel?
 }
 
+enum MessageType {
+    case text
+    case image
+    case video
+    
+    //Not implement yet
+    case textVideo
+    case textImage
+}
 struct ChatMessage {
     let text: String
     let isIncoming: Bool
     let date: Date
+    let type : MessageType = .text
 }
