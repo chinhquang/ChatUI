@@ -54,6 +54,8 @@ class CounterView: UIView {
         countLabel.frame = self.bounds
     }
 }
+
+// MARK: - This class is used to handle opening attachments
 class AttachmentViewerController{
    
     var items: [DataItem] = []
@@ -78,7 +80,6 @@ class AttachmentViewerController{
     }
     func showGalleryImageViewer( displacedView : UIImageView, fromViewController : UIViewController) {
 
-//        guard let displacedView = sender.view as? UIImageView else { return }
 
         guard let displacedViewIndex = items.firstIndex(where: { $0.imageView == displacedView }) else { return }
 
@@ -106,6 +107,8 @@ class AttachmentViewerController{
 
         fromViewController.presentImageGallery(galleryViewController)
     }
+    
+    //Add configuration
     func galleryConfiguration() -> GalleryConfiguration {
 
         return [
