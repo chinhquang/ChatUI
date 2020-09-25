@@ -29,4 +29,5 @@ public typealias BoolHandler = (Bool) -> (Void)
 public typealias StringHandler = (String?) -> (Void)
 public typealias VoidHandler = () -> ()
 
-
+//MARK: - SET current viewcontroller
+var kCurrentViewController : BaseViewController? = nil

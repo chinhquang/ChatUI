@@ -21,14 +21,15 @@ class ChatMessageViewController: BaseViewController {
     var chatMessageViewModel : ChatMessageViewModel = ChatMessageViewModel()
     fileprivate let cellId = "id123"
     
-   
     //MARK: - Public methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
         chatMessageViewModel.attemptToAssembleGroupedMessages()
         //Set up tableview
-        tableView.register(ChatMessageCell.self, forCellReuseIdentifier: cellId)
+        tableView.register(ChatMessageWithAttachmentCell.self, forCellReuseIdentifier: ChatMessageWithAttachmentCell.reuseIdentifier)
+        tableView.register(ChatMessageCell.self, forCellReuseIdentifier: ChatMessageCell.reuseIdentifier)
+
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
@@ -38,6 +39,7 @@ class ChatMessageViewController: BaseViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
@@ -139,12 +141,24 @@ extension ChatMessageViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! ChatMessageCell
+    
+        
 //        let chatMessage = chatMessages[indexPath.row]
         let chatMessage = chatMessageViewModel.chatMessages[indexPath.section][indexPath.row]
-        cell.chatMessage = chatMessage
-        cell.selectionStyle = .none
-        return cell
+        let celltype = chatMessage.type
+        switch celltype {
+        case .text:
+            let cell = tableView.dequeueReusableCell(withIdentifier: ChatMessageCell.reuseIdentifier, for: indexPath) as! ChatMessageCell
+            cell.chatMessage = chatMessage
+            cell.selectionStyle = .none
+            return cell
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: ChatMessageWithAttachmentCell.reuseIdentifier, for: indexPath) as! ChatMessageWithAttachmentCell
+            cell.chatMessage = chatMessage
+            cell.selectionStyle = .none
+            return cell
+        }
+        
     }
 
 }
@@ -156,4 +170,3 @@ extension ChatMessageViewController: UITableViewDelegate {
         inputTextField.endEditing(true)
     }
 }
-
